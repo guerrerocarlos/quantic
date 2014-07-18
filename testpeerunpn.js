@@ -14,13 +14,13 @@ var onReady = function () {
 
 
 peer.on("notify", function (headers, address) {
+    console.log("======================= NOTIFICACION RECEIVED");
     console.log("receive notify message from ", address);
     console.log(headers);
-    console.log("=======================");
 }).on("search", function (headers, address) {
+    console.log("======================= SEARCH REQUEST RECEIVED");
     console.log("receive search request message from ", address);
     console.log(headers);
-    console.log("=======================");
     var ST = headers.ST;
     var headers = {
         LOCATION: "http://0.0.0.0/upnp/devices/6bd5eabd-b7c8-4f7b-ae6c-a30ccdeb5988/desc.xml",
@@ -29,14 +29,13 @@ peer.on("notify", function (headers, address) {
         USN: "uuid:" + uuid + "::upnp:rootdevice",
             'BOOTID.UPNP.ORG': 1
     };
-    console.log("send reply to search request from ", address);
+    console.log(">> sending reply to ", address)
     console.log(headers);
-    console.log("=======================");
     peer.reply(headers, address);
 }).on("found", function (headers, address) {
+    console.log("======================= FOUND!");
     console.log("receive found message from ", address);
     console.log(headers);
-    console.log("=======================");
 }).on("close", function () {
     console.log("close");
 }).start();
